@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: product-service
+  cloud:
+    consul:
+      discovery:
+        prefer-ip-address: true
+      host: 127.0.0.1
+      port: 8500
+      config:
+        enabled: true
+        watch:
+          enabled: true
+---
+spring:
+  profiles: docker
+  application:
+    name: product-service
+  cloud:
+    consul:
+      host: consul
+      port: 8500
+      discovery:
+        prefer-ip-address: true
+        instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+      config:
+        enabled: true
+        watch:
+          enabled: true
